@@ -32,7 +32,7 @@ netlify.toml       Netlify build/publish config
 - [x] Organizer email set to `p24dhruv@iima.ac.in` across all pages.
 - [x] Trip dates locked to Republic Day weekend: Sat Jan 23 &ndash; Tue Jan 26, 2027.
 - [x] Flight cost estimates added to `pricing.html` for Delhi/Mumbai/Bengaluru/Singapore/London, based on live search data (Sept 2026) and sanity-checked against a real Google Flights quote &mdash; recheck ~3-4 months before departure once fares firm up.
-- [ ] Fill in real per-person **land package** pricing on `pricing.html` (still `$X,XXX` placeholders &mdash; needs actual hotel/lift-pass/transfer/dinner vendor quotes, which flight-search tools can't provide).
+- [x] Land package pricing added to `pricing.html` across 5 accommodation archetypes (Single Economic/Luxury, Single Grouped/Twin-Share, Family Economic/Luxury), built up from live Almaty hotel, lift-pass, rental, and transfer costs (Sept 2026) &mdash; still not contracted group rates, expect ±15% movement once real vendor quotes come in.
 - [ ] Swap the placeholder Edition I testimonials on `index.html` for real quotes/photos.
 - [ ] Add real photos (hero background is currently a CSS/SVG mountain silhouette).
 - [ ] Confirm Kazakhstan visa guidance is accurate for your group's nationalities before publishing the FAQ answer as final.
