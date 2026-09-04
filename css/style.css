@@ -419,7 +419,7 @@ section { padding: 72px 0; }
 }
 .event-row.snow .dot { background: var(--sky-400); }
 .event-row.city .dot { background: var(--gold-400); }
-.event-row.network .dot { background: #e0679c; }
+.event-row.social .dot { background: #e0679c; }
 .event-row .content h4 { font-size: 1rem; margin-bottom: 4px; }
 .event-row .content p { font-size: 0.92rem; margin-bottom: 6px; }
 
@@ -552,26 +552,6 @@ section { padding: 72px 0; }
 .incl-excl .card ul { list-style: none; padding: 0; margin: 0; }
 .incl-excl .card li { padding: 8px 0; font-size: 0.93rem; border-bottom: 1px solid #f0f4f8; }
 .incl-excl .card li:last-child { border-bottom: none; }
-
-/* ---------- Networking events ---------- */
-.event-card {
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 22px;
-  padding: 28px 0;
-  border-bottom: 1px solid #e6eef5;
-}
-.event-card:last-child { border-bottom: none; }
-.event-card .ev-day {
-  text-align: center;
-  background: var(--navy-900);
-  color: var(--white);
-  border-radius: var(--radius-md);
-  padding: 12px 8px;
-  height: fit-content;
-}
-.event-card .ev-day .n { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 600; }
-.event-card .ev-day .l { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; }
 
 /* ---------- FAQ Accordion ---------- */
 .accordion-item {

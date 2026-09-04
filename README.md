@@ -1,6 +1,6 @@
 # IIMA Snow Trek 2027
 
-Website for the IIMA alumni Snow Trek — the annual alumni Snowflake trip. Edition I went to the Dolomites; Edition II heads to Almaty and Shymbulak, Kazakhstan for a 4-night, 4-full-day trip combining skiing/snowboarding, Almaty city experiences, and alumni networking events.
+Website for the IIMA alumni Snow Trek — the annual alumni Snowflake trip. Edition I went to the Dolomites; Edition II heads to Almaty and Shymbulak, Kazakhstan for a 4-night, 4-full-day trip focused on learning to ski/snowboard and winter experiences in Kazakhstan (no professional-networking framing — see below).
 
 ## Structure
 
@@ -10,7 +10,6 @@ Static site, no build tooling required:
 index.html        Home
 itinerary.html     Day-by-day itinerary
 activities.html    Shymbulak snow activities + Almaty non-snow activities
-events.html        Networking & mixer events
 pricing.html       Pricing tiers, inclusions/exclusions
 faq.html           FAQ (visa, weather, packing, currency, etc.)
 register.html      RSVP / interest registration form (Netlify Forms)
@@ -37,3 +36,4 @@ netlify.toml       Netlify build/publish config
 - [ ] Swap the placeholder Edition I testimonials on `index.html` for real quotes/photos.
 - [x] Real destination photos added (hero backgrounds, home page gallery, activities banners/thumbnails) — all hotlinked from Wikimedia Commons via `Special:FilePath`. Several are CC BY-SA (attribution required); a general "Photos: Wikimedia Commons contributors" credit is on the home and activities pages, but double-check individual file pages on commons.wikimedia.org and add specific photographer credit if required before wide public launch.
 - [ ] Confirm Kazakhstan visa guidance is accurate for your group's nationalities before publishing the FAQ answer as final.
+- [x] Dropped the professional-networking/mixer framing site-wide per updated direction: removed the dedicated `events.html` page, renamed the evening events (Welcome Reception → Welcome Dinner, Apres-Ski Mixer → Apres-Ski Hangout, Alumni Gala Dinner &amp; Fireside Chat → Group Dinner Night), and reworded home page copy to center on learning to ski/snowboard and winter experiences rather than alumni networking.
