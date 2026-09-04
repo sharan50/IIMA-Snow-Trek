@@ -29,7 +29,7 @@ netlify.toml       Netlify build/publish config
 
 ## Things to update before sharing
 
-- [ ] Replace the placeholder organizer email (`organizer@example.com`) across all pages with a real contact address.
+- [x] Organizer email set to `p24dhruv@iima.ac.in` across all pages.
 - [ ] Confirm and fill in real trip dates (currently "January 2027, TBC").
 - [ ] Fill in real per-person pricing on `pricing.html` (currently `$X,XXX` placeholders).
 - [ ] Swap the placeholder Edition I testimonials on `index.html` for real quotes/photos.
