@@ -30,8 +30,9 @@ netlify.toml       Netlify build/publish config
 ## Things to update before sharing
 
 - [x] Organizer email set to `p24dhruv@iima.ac.in` across all pages.
-- [ ] Confirm and fill in real trip dates (currently "January 2027, TBC").
-- [ ] Fill in real per-person pricing on `pricing.html` (currently `$X,XXX` placeholders).
+- [x] Trip dates locked to Republic Day weekend: Sat Jan 23 &ndash; Tue Jan 26, 2027.
+- [x] Flight cost estimates added to `pricing.html` for Delhi/Mumbai/Bengaluru/Singapore/London, cross-checked across multiple sources in Sept 2026 &mdash; recheck ~3-4 months before departure once fares are properly bookable.
+- [ ] Fill in real per-person **land package** pricing on `pricing.html` (still `$X,XXX` placeholders &mdash; needs actual hotel/lift-pass/transfer/dinner vendor quotes, which flight-search tools can't provide).
 - [ ] Swap the placeholder Edition I testimonials on `index.html` for real quotes/photos.
 - [ ] Add real photos (hero background is currently a CSS/SVG mountain silhouette).
 - [ ] Confirm Kazakhstan visa guidance is accurate for your group's nationalities before publishing the FAQ answer as final.
