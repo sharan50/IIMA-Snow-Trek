@@ -1,6 +1,6 @@
 # IIMA Snow Trek 2027
 
-Website for the IIMA alumni Snow Trek — the annual alumni Snowflake trip. Edition I went to the Dolomites; Edition II heads to Almaty and Shymbulak, Kazakhstan for a 4-day, 3-night trip combining skiing/snowboarding, Almaty city experiences, and alumni networking events.
+Website for the IIMA alumni Snow Trek — the annual alumni Snowflake trip. Edition I went to the Dolomites; Edition II heads to Almaty and Shymbulak, Kazakhstan for a 4-night, 4-full-day trip combining skiing/snowboarding, Almaty city experiences, and alumni networking events.
 
 ## Structure
 
@@ -30,9 +30,10 @@ netlify.toml       Netlify build/publish config
 ## Things to update before sharing
 
 - [x] Organizer email set to `p24dhruv@iima.ac.in` across all pages.
-- [x] Trip dates locked to Republic Day weekend: Sat Jan 23 &ndash; Tue Jan 26, 2027.
+- [x] Trip dates locked to Republic Day weekend: Fri Jan 22 &ndash; Tue Jan 26, 2027 (4 nights, 4 full days: 1 arrival day + 4 full days, anchored on the Jan 26 holiday).
 - [x] Flight cost estimates added to `pricing.html` for Delhi/Mumbai/Bengaluru/Singapore/London, based on live search data (Sept 2026) and sanity-checked against a real Google Flights quote &mdash; recheck ~3-4 months before departure once fares firm up.
-- [x] Land package pricing added to `pricing.html` across 5 accommodation archetypes (Single Economic/Luxury, Single Grouped/Twin-Share, Family Economic/Luxury), built up from live Almaty hotel, lift-pass, rental, and transfer costs (Sept 2026) &mdash; still not contracted group rates, expect ±15% movement once real vendor quotes come in.
+- [x] Land package pricing added to `pricing.html` across 5 accommodation archetypes (Single Economic/Luxury, Single Grouped/Dorm, Family Economic/Luxury), built up from live Almaty hotel, lift-pass, rental, and transfer costs for 4 nights (Sept 2026) &mdash; still not contracted group rates, expect ±15% movement once real vendor quotes come in. The "Family Economic" room rate was corrected from an unrealistically cheap $55/night to ~$120/night after review (see pricing page footnote for the full breakdown).
+- [x] Food &amp; drink (non-package meals, snacks, incidentals) cost estimate added to `pricing.html`, grounded in Numbeo Almaty cost-of-living data and Shymbulak's on-mountain food prices.
 - [ ] Swap the placeholder Edition I testimonials on `index.html` for real quotes/photos.
 - [x] Real destination photos added (hero backgrounds, home page gallery, activities banners/thumbnails) — all hotlinked from Wikimedia Commons via `Special:FilePath`. Several are CC BY-SA (attribution required); a general "Photos: Wikimedia Commons contributors" credit is on the home and activities pages, but double-check individual file pages on commons.wikimedia.org and add specific photographer credit if required before wide public launch.
 - [ ] Confirm Kazakhstan visa guidance is accurate for your group's nationalities before publishing the FAQ answer as final.
