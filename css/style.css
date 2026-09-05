@@ -242,6 +242,12 @@ section { padding: 72px 0; }
   top: -30px;
   font-size: 220px;
   color: rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+
+/* The decorative flake crowds the heading on narrow screens — drop it there. */
+@media (max-width: 760px) {
+  .page-hero::after { display: none; }
 }
 
 .page-hero h1 { color: var(--white); font-size: clamp(1.9rem, 4vw, 2.7rem); }
@@ -300,6 +306,8 @@ section { padding: 72px 0; }
 }
 .hero-fact:last-child { border-bottom: none; }
 .hero-fact strong { color: var(--white); font-weight: 600; }
+.hero-fact a { color: var(--gold-400); font-weight: 600; border-bottom: 1px solid rgba(244,185,66,0.4); }
+.hero-fact a:hover { border-bottom-color: var(--gold-400); }
 
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
@@ -384,7 +392,7 @@ section { padding: 72px 0; }
 .timeline { position: relative; margin-top: 20px; }
 .day-block {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: 172px 1fr;
   gap: 32px;
   padding: 32px 0;
   border-bottom: 1px solid #e6eef5;
@@ -396,8 +404,9 @@ section { padding: 72px 0; }
   top: 90px;
   align-self: start;
 }
-.day-label .day-num { font-family: 'Fraunces', serif; font-size: 2.2rem; color: var(--sky-500); font-weight: 600; }
-.day-label .day-name { font-size: 0.82rem; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.08em; }
+.day-label .day-num { font-family: 'Fraunces', serif; font-size: 1.7rem; color: var(--sky-500); font-weight: 600; line-height: 1.15; }
+.day-label .day-name { font-size: 0.9rem; color: var(--navy-800); font-weight: 500; margin-top: 4px; line-height: 1.35; }
+.day-label .day-note { font-size: 0.72rem; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 6px; }
 
 .event-row {
   display: flex;
@@ -425,7 +434,8 @@ section { padding: 72px 0; }
 
 @media (max-width: 700px) {
   .day-block { grid-template-columns: 1fr; gap: 8px; }
-  .day-label { position: static; display: flex; align-items: baseline; gap: 10px; }
+  .day-label { position: static; margin-bottom: 8px; }
+  .day-label .day-name { margin-top: 2px; }
 }
 
 /* ---------- Tabs (Activities page) ---------- */
