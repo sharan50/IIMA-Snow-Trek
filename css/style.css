@@ -723,6 +723,52 @@ section { padding: 72px 0; }
 /* Offset the anchor target so #calc doesn't land under the sticky header. */
 .calc { margin-top: 8px; scroll-margin-top: 90px; }
 
+.calc-origin {
+  background: var(--white);
+  border: 1px solid #eef3f8;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+.calc-origin-label { margin-bottom: 14px; }
+.calc-origin-label strong {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  color: var(--navy-950);
+  margin-bottom: 4px;
+}
+.calc-origin-label span { font-size: 0.85rem; color: var(--slate-500); }
+
+.origin-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.origin-btn {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid #dbe7f0;
+  background: var(--ice-100);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy-800);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.origin-btn span { font-weight: 500; font-size: 0.8rem; color: var(--slate-500); }
+.origin-btn:hover { border-color: var(--sky-400); }
+.origin-btn.active { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
+.origin-btn.active span { color: var(--gold-400); }
+
+.calc-step-label { margin-bottom: 12px; }
+.calc-step-label strong {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  color: var(--navy-950);
+}
+
 .calc-presets {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

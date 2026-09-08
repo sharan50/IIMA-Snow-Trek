@@ -102,26 +102,42 @@
     </div>
 
     <div class="calc" id="calc">
+      <div class="calc-origin">
+        <div class="calc-origin-label">
+          <strong>1. Where are you flying from?</strong>
+          <span>These are the five hubs we've researched fares for. Your choice sticks as you switch between travellers below.</span>
+        </div>
+        <div class="origin-chips">
+          <button class="origin-btn active" data-origin="del">Delhi <span>$365</span></button>
+          <button class="origin-btn" data-origin="bom">Mumbai <span>$355</span></button>
+          <button class="origin-btn" data-origin="blr">Bengaluru <span>$390</span></button>
+          <button class="origin-btn" data-origin="sin">Singapore <span>$515</span></button>
+          <button class="origin-btn" data-origin="lhr">London <span>$480</span></button>
+          <button class="origin-btn" data-origin="none">Booking my own <span>excluded</span></button>
+        </div>
+      </div>
+
+      <div class="calc-step-label"><strong>2. Which traveller sounds like you?</strong></div>
       <div class="calc-presets">
         <button class="preset-btn active" data-preset="first-timer">
-          <span class="p-name">The First-Timer</span>
-          <span class="p-blurb">Never skied. Wants lessons, a private room and no logistics to think about.</span>
+          <span class="p-name">The Economic First-Time Skier</span>
+          <span class="p-blurb">Never skied. Lessons and gear included, cheapest private room, no frills.</span>
         </button>
-        <button class="preset-btn" data-preset="powder-hound">
-          <span class="p-name">The Powder Hound</span>
-          <span class="p-blurb">Skis already, wants every day on the mountain the pass will cover.</span>
+        <button class="preset-btn" data-preset="couple">
+          <span class="p-name">The Couple</span>
+          <span class="p-blurb">Two of you sharing a room, two days on snow, and an evening at the banya.</span>
         </button>
-        <button class="preset-btn" data-preset="comfort-couple">
-          <span class="p-name">The Comfort Couple</span>
-          <span class="p-blurb">Two of you, a proper hotel, a couple of days on snow and a long lunch.</span>
+        <button class="preset-btn" data-preset="family">
+          <span class="p-name">The Family</span>
+          <span class="p-blurb">Two adults and two kids in one family room, everyone on the mountain.</span>
         </button>
-        <button class="preset-btn" data-preset="family-four">
-          <span class="p-name">The Family of Four</span>
-          <span class="p-blurb">Two adults, two kids, one family room, lessons for whoever needs them.</span>
+        <button class="preset-btn" data-preset="non-skier">
+          <span class="p-name">The Non-Skier</span>
+          <span class="p-blurb">Here for Almaty, not the slopes. No passes, no gear — banya and the city instead.</span>
         </button>
-        <button class="preset-btn" data-preset="bunk-board">
-          <span class="p-name">Bunk &amp; Board</span>
-          <span class="p-blurb">Cheapest way onto the mountain: a bed in a dorm and three days of skiing.</span>
+        <button class="preset-btn" data-preset="luxury">
+          <span class="p-name">The Luxury Traveller</span>
+          <span class="p-blurb">Five-star room, all three ski days, and no interest in economising.</span>
         </button>
       </div>
 
@@ -135,6 +151,7 @@
           <div class="calc-field">
             <label for="c-children">Children (6–12)</label>
             <input type="number" id="c-children" min="0" max="6" value="0">
+            <div class="hint" style="font-size:0.75rem; color:var(--slate-500); margin-top:4px;">Shymbulak's child lift rate covers ages 6–10, so count teenagers as adults here — 13+ pay close to the full rate on the mountain.</div>
           </div>
           <label class="calc-check">
             <input type="checkbox" id="c-children-ski">
@@ -170,18 +187,7 @@
             <span>Beginner group lesson ($22 each)</span>
           </label>
 
-          <h4>Getting there &amp; spending</h4>
-          <div class="calc-field">
-            <label for="c-origin">Flying from</label>
-            <select id="c-origin">
-              <option value="del">Delhi (DEL) — $365</option>
-              <option value="bom">Mumbai (BOM) — $355</option>
-              <option value="blr">Bengaluru (BLR) — $390</option>
-              <option value="sin">Singapore (SIN) — $515</option>
-              <option value="lhr">London (LHR) — $480</option>
-              <option value="none">Booking my own / not counted</option>
-            </select>
-          </div>
+          <h4>Spending</h4>
           <div class="calc-field">
             <label for="c-food">Food &amp; drink habit</label>
             <select id="c-food">

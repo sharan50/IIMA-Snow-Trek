@@ -94,40 +94,39 @@ var CATEGORIES = [
   { key: 'extras',   label: 'Food & extras',    color: '#e87ba4' }
 ];
 
+/* Presets deliberately carry no departure city: you pick that once from the
+   chips at the top and it survives every archetype switch, so the comparison
+   is like-for-like from wherever you're actually flying. */
 var PRESETS = {
   'first-timer': {
-    label: 'The First-Timer',
-    blurb: 'Never skied. Wants lessons, a private room and no logistics to think about.',
+    label: 'The Economic First-Time Skier',
     state: { adults: 1, children: 0, childrenSki: false, room: 'econPrivate', skiDays: 2,
-             rental: true, lesson: true, origin: 'del', food: 'standard', banya: false, skating: true }
+             rental: true, lesson: true, food: 'light', banya: false, skating: false }
   },
-  'powder-hound': {
-    label: 'The Powder Hound',
-    blurb: 'Skis already, wants every day on the mountain the pass will cover.',
-    state: { adults: 1, children: 0, childrenSki: false, room: 'econPrivate', skiDays: 3,
-             rental: true, lesson: false, origin: 'del', food: 'generous', banya: true, skating: false }
+  'couple': {
+    label: 'The Couple',
+    state: { adults: 2, children: 0, childrenSki: false, room: 'econPrivate', skiDays: 2,
+             rental: true, lesson: false, food: 'standard', banya: true, skating: true }
   },
-  'comfort-couple': {
-    label: 'The Comfort Couple',
-    blurb: 'Two of you, a proper hotel, a couple of days on snow and a long lunch.',
-    state: { adults: 2, children: 0, childrenSki: false, room: 'luxPrivate', skiDays: 2,
-             rental: true, lesson: false, origin: 'del', food: 'generous', banya: true, skating: false }
-  },
-  'family-four': {
-    label: 'The Family of Four',
-    blurb: 'Two adults, two kids, one family room, lessons for everyone who needs them.',
+  'family': {
+    label: 'The Family',
     state: { adults: 2, children: 2, childrenSki: true, room: 'familyEcon', skiDays: 2,
-             rental: true, lesson: true, origin: 'del', food: 'standard', banya: false, skating: true }
+             rental: true, lesson: true, food: 'standard', banya: false, skating: true }
   },
-  'bunk-board': {
-    label: 'Bunk & Board',
-    blurb: 'Cheapest way onto the mountain. A bed in a dorm and three days of skiing.',
-    state: { adults: 1, children: 0, childrenSki: false, room: 'dorm', skiDays: 3,
-             rental: true, lesson: true, origin: 'del', food: 'light', banya: false, skating: false }
+  'non-skier': {
+    label: 'The Non-Skier',
+    state: { adults: 1, children: 0, childrenSki: false, room: 'econPrivate', skiDays: 0,
+             rental: false, lesson: false, food: 'standard', banya: true, skating: true }
+  },
+  'luxury': {
+    label: 'The Luxury Traveller',
+    state: { adults: 1, children: 0, childrenSki: false, room: 'luxPrivate', skiDays: 3,
+             rental: true, lesson: false, food: 'generous', banya: true, skating: true }
   }
 };
 
 var state = JSON.parse(JSON.stringify(PRESETS['first-timer'].state));
+state.origin = 'del';
 
 /* --------------------------------------------------------------------------
    The model
@@ -321,11 +320,13 @@ function syncControls() {
     state.skiDays === 0 ? 'none' : state.skiDays + ' of 3';
   document.getElementById('c-rental').checked = state.rental;
   document.getElementById('c-lesson').checked = state.lesson;
-  document.getElementById('c-origin').value = state.origin;
   document.getElementById('c-food').value = state.food;
   document.getElementById('c-banya').checked = state.banya;
   document.getElementById('c-skating').checked = state.skating;
   document.getElementById('c-children-ski').disabled = state.children === 0;
+  document.querySelectorAll('.origin-btn').forEach(function (b) {
+    b.classList.toggle('active', b.getAttribute('data-origin') === state.origin);
+  });
 }
 
 function initCalculator() {
@@ -334,9 +335,19 @@ function initCalculator() {
   document.querySelectorAll('.preset-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var p = PRESETS[btn.getAttribute('data-preset')];
+      var origin = state.origin;           // your departure city outlives the preset
       state = JSON.parse(JSON.stringify(p.state));
+      state.origin = origin;
       document.querySelectorAll('.preset-btn').forEach(function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
+      syncControls();
+      render();
+    });
+  });
+
+  document.querySelectorAll('.origin-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      state.origin = btn.getAttribute('data-origin');
       syncControls();
       render();
     });
@@ -363,7 +374,6 @@ function initCalculator() {
   bind('c-ski-days', 'skiDays', num);
   bind('c-rental', 'rental', bool);
   bind('c-lesson', 'lesson', bool);
-  bind('c-origin', 'origin', same);
   bind('c-food', 'food', same);
   bind('c-banya', 'banya', bool);
   bind('c-skating', 'skating', bool);
