@@ -94,10 +94,140 @@
     </div>
     <p class="hint" style="margin-top:12px; color:var(--slate-500); font-size:0.85rem;">Sanity-checked against a live Google Flights search for Delhi–Almaty, which turned up round trips as low as ~£304 (~$385) — right inside the range above. Fares swing a lot with exact dates, how far ahead you book, and whether you take a budget routing with a longer layover vs. a direct flight; Republic Day long-weekend demand could push toward the upper end. Worth rechecking closer to departure and before the group locks in dates.</p>
 
-    <div class="section-head" style="margin-top:56px;">
+    <div class="section-head" style="margin-top:64px;">
+      <span class="eyebrow">Work out your own number</span>
+      <h2>What the trip costs you</h2>
+      <p class="lede">Start from whichever traveller sounds most like you, then change anything — how many of you there are, where you're flying from, how many days you actually want to be on snow. The breakdown underneath shows where every dollar goes.</p>
+    </div>
+
+    <div class="calc" id="calc">
+      <div class="calc-presets">
+        <button class="preset-btn active" data-preset="first-timer">
+          <span class="p-name">The First-Timer</span>
+          <span class="p-blurb">Never skied. Wants lessons, a private room and no logistics to think about.</span>
+        </button>
+        <button class="preset-btn" data-preset="powder-hound">
+          <span class="p-name">The Powder Hound</span>
+          <span class="p-blurb">Skis already, wants every day on the mountain the pass will cover.</span>
+        </button>
+        <button class="preset-btn" data-preset="comfort-couple">
+          <span class="p-name">The Comfort Couple</span>
+          <span class="p-blurb">Two of you, a proper hotel, a couple of days on snow and a long lunch.</span>
+        </button>
+        <button class="preset-btn" data-preset="family-four">
+          <span class="p-name">The Family of Four</span>
+          <span class="p-blurb">Two adults, two kids, one family room, lessons for whoever needs them.</span>
+        </button>
+        <button class="preset-btn" data-preset="bunk-board">
+          <span class="p-name">Bunk &amp; Board</span>
+          <span class="p-blurb">Cheapest way onto the mountain: a bed in a dorm and three days of skiing.</span>
+        </button>
+      </div>
+
+      <div class="calc-body">
+        <div class="calc-controls">
+          <h4>Who's coming</h4>
+          <div class="calc-field">
+            <label for="c-adults">Adults</label>
+            <input type="number" id="c-adults" min="1" max="8" value="1">
+          </div>
+          <div class="calc-field">
+            <label for="c-children">Children (6–12)</label>
+            <input type="number" id="c-children" min="0" max="6" value="0">
+          </div>
+          <label class="calc-check">
+            <input type="checkbox" id="c-children-ski">
+            <span>Children ski too (child lift passes are about a quarter of an adult's)</span>
+          </label>
+
+          <h4>Where you sleep</h4>
+          <div class="calc-field">
+            <label for="c-room">Room type</label>
+            <select id="c-room">
+              <option value="econPrivate">Private room, 2–3★ — $45/night</option>
+              <option value="luxPrivate">Private room, 5★ — $320/night</option>
+              <option value="familyEcon">Family room, economy — $120/night</option>
+              <option value="familyLux">Family suite, luxury — $425/night</option>
+              <option value="dorm">4-bed hostel dorm — $12/bed/night</option>
+            </select>
+          </div>
+
+          <h4>Time on snow</h4>
+          <div class="calc-field">
+            <div class="range-row">
+              <label for="c-ski-days">Ski days</label>
+              <span class="range-out" id="c-ski-days-out">2 of 3</span>
+            </div>
+            <input type="range" id="c-ski-days" min="0" max="3" step="1" value="2">
+          </div>
+          <label class="calc-check">
+            <input type="checkbox" id="c-rental" checked>
+            <span>Hire skis or a board ($15/day)</span>
+          </label>
+          <label class="calc-check">
+            <input type="checkbox" id="c-lesson" checked>
+            <span>Beginner group lesson ($25 each)</span>
+          </label>
+
+          <h4>Getting there &amp; spending</h4>
+          <div class="calc-field">
+            <label for="c-origin">Flying from</label>
+            <select id="c-origin">
+              <option value="del">Delhi (DEL) — $410</option>
+              <option value="bom">Mumbai (BOM) — $385</option>
+              <option value="blr">Bengaluru (BLR) — $475</option>
+              <option value="sin">Singapore (SIN) — $575</option>
+              <option value="lhr">London (LHR) — $675</option>
+              <option value="none">Booking my own / not counted</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="c-food">Food &amp; drink habit</label>
+            <select id="c-food">
+              <option value="light">Light — $95 each</option>
+              <option value="standard">Standard — $130 each</option>
+              <option value="generous">Generous — $165 each</option>
+            </select>
+          </div>
+          <label class="calc-check">
+            <input type="checkbox" id="c-banya">
+            <span>Banya session ($21 each)</span>
+          </label>
+          <label class="calc-check">
+            <input type="checkbox" id="c-skating">
+            <span>Skating at Medeu ($6 adult, $2 child)</span>
+          </label>
+        </div>
+
+        <div class="calc-output">
+          <div class="calc-total-head">Estimated total for your party</div>
+          <div class="calc-total-num" id="calc-total">$0</div>
+          <div class="calc-total-sub" id="calc-total-inr"></div>
+          <div class="calc-per-head" id="calc-per-head"></div>
+
+          <div class="stack-bar" id="calc-bar"></div>
+          <ul class="calc-legend" id="calc-legend"></ul>
+
+          <table class="calc-table">
+            <thead>
+              <tr>
+                <th>Where it goes</th>
+                <th>Line item</th>
+                <th>Cost</th>
+              </tr>
+            </thead>
+            <tbody id="calc-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="hint" style="margin-top:16px; color:var(--slate-500); font-size:0.85rem;">Where the numbers come from: Shymbulak's published day passes (9,000 KZT weekday, 12,000 KZT weekend, 3,000 KZT for ages 6–10 — our Saturday and Sunday are the pricier weekend days, and the New Year surcharge window has closed by our dates); resort gear hire at 7,000 KZT/day for a basic set; a banya visit at 10,000 KZT; Medeu at 1,800 KZT entry plus 1,000 KZT skate hire. Converted at roughly 470 KZT to the dollar. Flights use the midpoints of the ranges above. The hosted meals and the coordination fee are our own numbers rather than quoted rates, and rooms are booked to capacity — a party of four in a 2-person room is billed as two rooms. Heli-skiing is deliberately absent: it's quoted trip by trip, so ask rather than guess.</p>
+
+    <div class="section-head" style="margin-top:64px;">
       <span class="eyebrow">Land package · by accommodation type</span>
       <h2>What it costs, per person</h2>
-      <p class="lede">Built up from real component costs — Almaty hotel rates by category, Shymbulak lift passes &amp; rental, shared transfers, and event costs — checked September 2026. Every archetype includes the same $320pp of shared inclusions (breakdown below); only the room changes. Most people take a comfortable private room; the dorm option is there for anyone who genuinely prefers it.</p>
+      <p class="lede">Built up from real component costs — Almaty hotel rates by category, Shymbulak lift passes &amp; rental, shared transfers, and event costs — checked September 2026. Every archetype includes the same ~$330pp of shared inclusions (breakdown below); only the room changes. Most people take a comfortable private room; the dorm option is there for anyone who genuinely prefers it.</p>
     </div>
 
     <div class="flight-table-wrap">
@@ -114,37 +244,37 @@
           <tr>
             <td class="hub">Single Stay — Luxury</td>
             <td>Private room, 5★ hotel (~$320/night)</td>
-            <td class="fare-usd">$1,480 – $1,750</td>
-            <td class="fare-local">₹1,24,000 – ₹1,47,000</td>
+            <td class="fare-usd">$1,480 – $1,760</td>
+            <td class="fare-local">₹1,24,000 – ₹1,48,000</td>
           </tr>
           <tr>
             <td class="hub">Family — Luxury</td>
             <td>Family of 4 in one luxury suite, ~$425/night, split 4 ways</td>
-            <td class="fare-usd">$680 – $810</td>
-            <td class="fare-local">₹57,000 – ₹68,000</td>
+            <td class="fare-usd">$690 – $820</td>
+            <td class="fare-local">₹58,000 – ₹69,000</td>
           </tr>
           <tr>
             <td class="hub">Single Stay — Economic</td>
             <td>Private room, 2–3★ hotel (~$45/night)</td>
-            <td class="fare-usd">$460 – $540</td>
-            <td class="fare-local">₹39,000 – ₹45,000</td>
+            <td class="fare-usd">$465 – $555</td>
+            <td class="fare-local">₹39,000 – ₹47,000</td>
           </tr>
           <tr>
             <td class="hub">Family — Economic</td>
             <td>Family of 4 in one economy family room, ~$120/night, split 4 ways</td>
-            <td class="fare-usd">$400 – $480</td>
-            <td class="fare-local">₹34,000 – ₹40,000</td>
+            <td class="fare-usd">$410 – $495</td>
+            <td class="fare-local">₹34,000 – ₹42,000</td>
           </tr>
           <tr>
             <td class="hub">Single — Grouped Stay</td>
             <td>4-bed hostel dorm, shared with other alumni (~$12/night/bed)</td>
-            <td class="fare-usd">$340 – $400</td>
-            <td class="fare-local">₹29,000 – ₹34,000</td>
+            <td class="fare-usd">$345 – $415</td>
+            <td class="fare-local">₹29,000 – ₹35,000</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="hint" style="margin-top:12px; color:var(--slate-500); font-size:0.85rem;">Each figure = ~$320 in shared package inclusions per person (shared airport transfer $20 + 3 days of Shymbulak transfers $38 + 3-day lift pass $64 + 3-day gear rental $45 + one group lesson $25 + the 4 hosted dinners/hangouts $85 + on-ground coordinator $45) + that archetype's accommodation share for 4 nights. "Grouped Stay" means a shared 4-bed dorm room, not a private twin-share — Almaty has a handful of hostels that can do this (e.g. Almaty Backpackers, Hostel Nomad), but a group of ~30 will likely need to book across 2-3 properties or well in advance; if dorm space runs out by the time we book, this archetype falls back to twin-sharing a standard hotel room (~3★, ~$85/night split 2 ways &rarr; roughly $505-575pp). "Family" assumes 4 people sharing one room — a family of 3 will land slightly higher per person; a non-skiing child removes roughly $130pp (their share of lift pass + rental + lesson across the 3 ski days). An earlier version of this table used an unrealistically cheap $55/night rate for the "economy family room," which undercounted that archetype relative to a real quad-occupancy room (~$120/night is closer to what Almaty family rooms actually go for, well below the ~$212/night city-wide average and the $425+ luxury suites). These are cross-checked planning figures, not contracted group rates — real quotes for a group booking this size could move them ±15% either way, and we'll firm them up once venues are confirmed.</p>
+    <p class="hint" style="margin-top:12px; color:var(--slate-500); font-size:0.85rem;">Each figure = ~$330 in shared package inclusions per person (shared airport transfer $20 + 3 days of Shymbulak transfers $38 + 3-day lift pass $71 + 3-day gear rental $45 + one group lesson $25 + the 4 hosted dinners/hangouts $85 + on-ground coordinator $45) + that archetype's accommodation share for 4 nights. The lift-pass line was corrected upward from $64 once Shymbulak's published rates were checked properly: two of our three ski days fall on a weekend, which costs 12,000 KZT a day rather than the 9,000 KZT weekday rate. "Grouped Stay" means a shared 4-bed dorm room, not a private twin-share — Almaty has a handful of hostels that can do this (e.g. Almaty Backpackers, Hostel Nomad), but a group of ~30 will likely need to book across 2-3 properties or well in advance; if dorm space runs out by the time we book, this archetype falls back to twin-sharing a standard hotel room (~3★, ~$85/night split 2 ways &rarr; roughly $505-575pp). "Family" assumes 4 people sharing one room — a family of 3 will land slightly higher per person; a non-skiing child removes roughly $130pp (their share of lift pass + rental + lesson across the 3 ski days). An earlier version of this table used an unrealistically cheap $55/night rate for the "economy family room," which undercounted that archetype relative to a real quad-occupancy room (~$120/night is closer to what Almaty family rooms actually go for, well below the ~$212/night city-wide average and the $425+ luxury suites). These are cross-checked planning figures, not contracted group rates — real quotes for a group booking this size could move them ±15% either way, and we'll firm them up once venues are confirmed.</p>
     <p class="center" style="margin-top:20px;"><a href="register.html" class="btn btn-primary">Reserve Your Spot</a></p>
 
     <div class="section-head" style="margin-top:56px;">
@@ -276,5 +406,6 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/calculator.js"></script>
 </body>
 </html>
