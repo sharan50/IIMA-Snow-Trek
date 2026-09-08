@@ -719,18 +719,6 @@ section { padding: 72px 0; }
   margin-bottom: 24px;
 }
 
-/* ---------- Testimonials ---------- */
-.quote-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  box-shadow: var(--shadow-card);
-  border: 1px solid #eef3f8;
-}
-.quote-card .mark { font-family: 'Fraunces', serif; font-size: 2.4rem; color: var(--gold-400); line-height: 0.5; display: block; margin-bottom: 10px; }
-.quote-card footer { margin-top: 14px; font-size: 0.85rem; font-weight: 600; color: var(--navy-800); }
-.quote-card footer span { display: block; font-weight: 400; color: var(--slate-500); font-size: 0.8rem; }
-
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--navy-950);
