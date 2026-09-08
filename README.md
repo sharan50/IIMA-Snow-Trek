@@ -19,12 +19,33 @@ js/main.js         Nav toggle, tabs, FAQ accordion, AJAX form submit
 netlify.toml       Netlify build/publish config
 ```
 
-## Deploying on Netlify
+## Deploying on Cloudflare Pages
 
-1. Connect this GitHub repo to a new Netlify site.
-2. Build command: none needed (or leave as configured in `netlify.toml`).
-3. Publish directory: `.` (repo root).
-4. The registration form on `register.html` uses [Netlify Forms](https://docs.netlify.com/forms/setup/) — no backend needed. Submissions show up under **Site settings → Forms** in the Netlify dashboard. Consider adding a notification (email/Slack) under **Forms → Form notifications** so you see new sign-ups.
+1. Connect this GitHub repo to a Cloudflare Pages project.
+2. Framework preset: **None**. Build command: leave empty. Build output directory: `/` (repo root).
+3. `_headers` sets the security headers Cloudflare Pages applies to every response.
+
+## Registrations
+
+The form on `register.html` posts to [Web3Forms](https://web3forms.com), which emails each
+submission to the organiser. There is no backend to run and it is host-agnostic.
+
+**Setup — the form will not work until this is done:**
+
+1. Go to web3forms.com, enter `p24dhruv@iima.ac.in`, and they email you an access key (a UUID).
+2. In `register.html`, replace `PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE` with that key.
+3. Update the `redirect` hidden field to your real domain, so the no-JavaScript
+   fallback lands on the right `success.html`.
+4. Redeploy, then **submit a real test registration and confirm the email arrives**
+   before sharing the link.
+
+Until the key is set, the form deliberately refuses to submit and tells the visitor
+to email instead — it never shows a false confirmation. Free tier is 250 submissions
+per month, which is ample for a ~30-person trip.
+
+> Previously this site was built for Netlify Forms (`data-netlify="true"`), which only
+> works on Netlify. On any other host that form silently discarded every submission
+> while still showing a success message, so it was replaced.
 
 ## Things to update before sharing
 

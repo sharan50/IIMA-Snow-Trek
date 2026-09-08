@@ -48,23 +48,50 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Registration form -> Netlify AJAX submit with inline success state
+  // Registration form -> Web3Forms, with an inline success state.
+  // Only ever show the confirmation when the endpoint actually accepted the
+  // submission: a failed post that still renders "You're on the list!" loses
+  // someone's registration without either side knowing.
   var form = document.getElementById('rsvp-form');
   if (form) {
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    var fail = function (msg) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Registration'; }
+      alert(msg + '\n\nPlease email p24dhruv@iima.ac.in directly so your spot is not lost.');
+    };
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var data = new FormData(form);
-      fetch('/', {
+
+      var key = (form.querySelector('[name="access_key"]') || {}).value || '';
+      if (key.indexOf('PASTE-YOUR') === 0) {
+        alert('This form is not connected yet — the site owner still needs to add the Web3Forms access key.\n\nPlease email p24dhruv@iima.ac.in to register in the meantime.');
+        return;
+      }
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+      fetch(form.action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString(),
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
       })
-        .then(function () {
+        .then(function (res) {
+          return res.json().catch(function () { return {}; })
+            .then(function (body) { return { ok: res.ok, body: body }; });
+        })
+        .then(function (r) {
+          if (!r.ok || r.body.success === false) {
+            fail('Sorry — your registration could not be submitted' +
+                 (r.body.message ? ' (' + r.body.message + ')' : '') + '.');
+            return;
+          }
           form.style.display = 'none';
           document.getElementById('form-success').style.display = 'block';
         })
         .catch(function () {
-          alert('Something went wrong submitting the form. Please try again or email the organizer directly.');
+          fail('Sorry — your registration could not be submitted. You may be offline.');
         });
     });
   }

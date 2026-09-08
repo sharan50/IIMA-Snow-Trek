@@ -41,11 +41,18 @@
   <div class="wrap" style="max-width:760px;">
     <div class="form-wrap">
 
-      <form id="rsvp-form" name="snow-trek-rsvp" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="snow-trek-rsvp" />
-        <p style="display:none;">
-          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-        </p>
+      <!-- Submissions go to Web3Forms, which emails them to the organiser.
+           REPLACE the access_key value below with the real key emailed to you
+           by web3forms.com (it looks like a UUID). Until that's done the form
+           deliberately refuses to submit rather than pretending to succeed. -->
+      <form id="rsvp-form" name="snow-trek-rsvp" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE" />
+        <input type="hidden" name="subject" value="New IIMA Snow Trek 2027 registration" />
+        <input type="hidden" name="from_name" value="IIMA Snow Trek website" />
+        <!-- No-JS fallback: Web3Forms redirects here after a successful post. -->
+        <input type="hidden" name="redirect" value="https://iima-snow-trek.pages.dev/success.html" />
+        <!-- Web3Forms honeypot: bots fill it, humans never see it. -->
+        <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
 
         <div class="form-grid-2">
           <div class="form-row">
