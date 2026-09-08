@@ -30,18 +30,26 @@ netlify.toml       Netlify build/publish config
 The form on `register.html` posts to [Web3Forms](https://web3forms.com), which emails each
 submission to the organiser. There is no backend to run and it is host-agnostic.
 
-**Setup — the form will not work until this is done:**
+The access key is configured. Free tier is 250 submissions per month, ample for a
+~30-person trip.
 
-1. Go to web3forms.com, enter `p24dhruv@iima.ac.in`, and they email you an access key (a UUID).
-2. In `register.html`, replace `PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE` with that key.
-3. Update the `redirect` hidden field to your real domain, so the no-JavaScript
-   fallback lands on the right `success.html`.
-4. Redeploy, then **submit a real test registration and confirm the email arrives**
-   before sharing the link.
+**Before sharing the link: submit one real test registration and confirm the email
+arrives.** Nothing else verifies the endpoint end to end.
 
-Until the key is set, the form deliberately refuses to submit and tells the visitor
-to email instead — it never shows a false confirmation. Free tier is 250 submissions
-per month, which is ample for a ~30-person trip.
+Notes:
+
+- The access key sits in client-side HTML, which is how Web3Forms works — it is not
+  a secret. It only allows posting to this form. Rotate it at web3forms.com if it
+  starts attracting spam; a hidden `botcheck` honeypot already filters most bots.
+- There is no `redirect` field. It only affects visitors with JavaScript disabled
+  (everyone else gets the inline success state), and it needs an absolute URL. Once
+  the final domain is settled, add
+  `<input type="hidden" name="redirect" value="https://YOURDOMAIN/success.html">`
+  to the form so those visitors land on the site's own success page instead of
+  Web3Forms' generic one.
+- The form only shows its confirmation when the endpoint actually accepts the
+  submission. A failed post surfaces the real error and tells the visitor to email
+  instead, so a registration can never be silently lost.
 
 > Previously this site was built for Netlify Forms (`data-netlify="true"`), which only
 > works on Netlify. On any other host that form silently discarded every submission

@@ -41,16 +41,22 @@
   <div class="wrap" style="max-width:760px;">
     <div class="form-wrap">
 
-      <!-- Submissions go to Web3Forms, which emails them to the organiser.
-           REPLACE the access_key value below with the real key emailed to you
-           by web3forms.com (it looks like a UUID). Until that's done the form
-           deliberately refuses to submit rather than pretending to succeed. -->
+      <!-- Submissions go to Web3Forms, which emails them to p24dhruv@iima.ac.in.
+           The access key is public by necessity — it lives in client-side HTML
+           on every Web3Forms site. It only permits posting to this form; rotate
+           it at web3forms.com if it ever attracts spam.
+
+           There is deliberately no `redirect` field: it would need an absolute
+           URL, and it is only ever used by visitors with JavaScript disabled
+           (everyone else gets the inline success state below). Rather than
+           hardcode a guessed domain and send those few people somewhere broken,
+           they land on Web3Forms' own thank-you page. Add
+           <input type="hidden" name="redirect" value="https://YOURDOMAIN/success.html">
+           once the final domain is settled. -->
       <form id="rsvp-form" name="snow-trek-rsvp" method="POST" action="https://api.web3forms.com/submit">
-        <input type="hidden" name="access_key" value="PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE" />
+        <input type="hidden" name="access_key" value="eadc4ead-afb0-473d-988f-7d4347d656d6" />
         <input type="hidden" name="subject" value="New IIMA Snow Trek 2027 registration" />
         <input type="hidden" name="from_name" value="IIMA Snow Trek website" />
-        <!-- No-JS fallback: Web3Forms redirects here after a successful post. -->
-        <input type="hidden" name="redirect" value="https://iima-snow-trek.pages.dev/success.html" />
         <!-- Web3Forms honeypot: bots fill it, humans never see it. -->
         <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
 
