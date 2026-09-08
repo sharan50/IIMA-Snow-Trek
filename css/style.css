@@ -628,8 +628,11 @@ section { padding: 72px 0; }
 .form-row select:focus,
 .form-row textarea:focus {
   outline: none;
-  border-color: var(--sky-400);
+  border-color: var(--sky-500);
   background: var(--white);
+  /* A border-colour change alone is a weak focus cue; the ring makes it
+     unambiguous without changing the field's geometry. */
+  box-shadow: 0 0 0 3px rgba(79, 176, 224, 0.35);
 }
 .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 @media (max-width: 600px) { .form-grid-2 { grid-template-columns: 1fr; } }
@@ -644,6 +647,14 @@ section { padding: 72px 0; }
   color: var(--slate-600);
 }
 .radio-pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+/* The real radio is hidden and the pill acts as the control, so the pill has to
+   carry the focus ring itself — otherwise keyboard users tabbing through have no
+   idea where they are. :focus-visible keeps it off mouse clicks. */
+.radio-pill:has(input:focus-visible) {
+  outline: 2px solid var(--sky-500);
+  outline-offset: 2px;
+  border-color: var(--sky-500);
+}
 .radio-pill:has(input:checked) {
   background: var(--navy-900);
   border-color: var(--navy-900);
@@ -863,7 +874,14 @@ section { padding: 72px 0; }
 .stack-seg { min-width: 3px; transition: filter 0.12s ease; }
 .stack-seg:first-child { border-radius: 4px 0 0 4px; }
 .stack-seg:last-child { border-radius: 0 4px 4px 0; }
-.stack-seg:hover, .stack-seg:focus { filter: brightness(1.08); outline: none; }
+.stack-seg:hover { filter: brightness(1.08); }
+/* Segments are tabbable (that's how the keyboard reaches their tooltips), so
+   they need a focus ring. Offset inward so it isn't clipped by the bar. */
+.stack-seg:focus-visible {
+  filter: brightness(1.08);
+  outline: 2px solid var(--navy-950);
+  outline-offset: -3px;
+}
 
 .calc-legend { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .calc-legend li { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; }
