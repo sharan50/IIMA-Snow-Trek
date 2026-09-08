@@ -11,61 +11,70 @@ var KZT_PER_USD = 470;
 var INR_PER_USD = 84;
 var NIGHTS = 4;
 
+/* Costing stance: every figure below sits at roughly the 25th percentile of
+   what we found on the market, not the midpoint. In plain terms these are
+   book-early, shop-around numbers — achievable, but they assume someone
+   actually does the shopping. A late booker should expect the upper half of
+   the ranges published elsewhere on this page. The two exceptions are lift
+   passes and the published ticket prices for the banya and Medeu: those are
+   fixed rates, so there is no percentile to pick. */
 var CONFIG = {
   // Shymbulak published day-pass rates, 2025/26 season: 9,000 KZT weekday,
   // 12,000 KZT weekend, 3,000 KZT for children 6-10. Our ski days fall on
   // Sat 23rd (weekend), Sun 24th (weekend) and Tue 26th (weekday). The New
   // Year surcharge window (25 Dec - 11 Jan) has closed by our dates.
+  // Fixed published price — not discounted.
   liftAdultByDay: [26, 26, 19],
   liftChildPerDay: 6,
 
-  // Resort rental, basic three-piece set at 7,000 KZT/day. A full set runs
-  // ~13,000 KZT and renting in Almaty city is ~5,000 KZT.
-  rentalPerDay: 15,
+  // Hiring in Almaty city rather than on the mountain: ~5,000 KZT/day against
+  // 7,000 KZT for the same basic set at the resort.
+  rentalPerDay: 11,
 
-  // Half-day group lesson for first-timers.
-  lessonPerPerson: 25,
+  // Half-day group lesson for first-timers, booked as a group.
+  lessonPerPerson: 22,
 
-  // Shared shuttle up to the mountain and back, per ski day.
-  mountainTransferPerDay: 13,
+  // Shared van up to the mountain and back, split across the group.
+  mountainTransferPerDay: 9,
 
-  // Return airport transfers, shared shuttle. Same for everyone.
-  airportTransfer: 20,
+  // Return airport transfers, shared. A car runs ~8,000 KZT and seats 3-4.
+  airportTransfer: 12,
 
-  // The four hosted meals/evenings. Organiser assumption, not a quoted rate.
-  hostedAdult: 85,
-  hostedChild: 45,
+  // The four hosted meals/evenings. Organiser assumption, not a quoted rate —
+  // this is the lever we control most directly.
+  hostedAdult: 65,
+  hostedChild: 35,
 
   // On-ground coordination and contingency. Organiser's own fee.
-  coordinatorAdult: 45,
-  coordinatorChild: 20,
+  coordinatorAdult: 30,
+  coordinatorChild: 15,
 
   // Per room per night, except the dorm which is per bed. Capacity is what the
   // room actually sleeps — the calculator books extra rooms when the party
   // outgrows one.
   rooms: {
-    dorm:          { label: '4-bed hostel dorm',        rate: 12,  capacity: 1, perPerson: true },
-    econPrivate:   { label: 'Private room, 2-3★',  rate: 45,  capacity: 2 },
-    luxPrivate:    { label: 'Private room, 5★',    rate: 320, capacity: 2 },
-    familyEcon:    { label: 'Family room, economy',     rate: 120, capacity: 4 },
-    familyLux:     { label: 'Family suite, luxury',     rate: 425, capacity: 4 }
+    dorm:          { label: '4-bed hostel dorm',        rate: 9,   capacity: 1, perPerson: true },
+    econPrivate:   { label: 'Private room, 2-3★',  rate: 38,  capacity: 2 },
+    luxPrivate:    { label: 'Private room, 5★',    rate: 285, capacity: 2 },
+    familyEcon:    { label: 'Family room, economy',     rate: 105, capacity: 4 },
+    familyLux:     { label: 'Family suite, luxury',     rate: 350, capacity: 4 }
   },
 
-  // Round-trip economy, midpoint of the ranges on this page. Children are
-  // charged as adults — child fare discounts on these routes are small and
-  // vary by airline.
+  // Round-trip economy at the 25th percentile of the ranges on this page.
+  // Children are charged as adults — child fare discounts on these routes are
+  // small and vary by airline.
   flights: {
     none: { label: 'Booking my own / not counted', fare: 0 },
-    del:  { label: 'Delhi (DEL)',       fare: 410 },
-    bom:  { label: 'Mumbai (BOM)',      fare: 385 },
-    blr:  { label: 'Bengaluru (BLR)',   fare: 475 },
-    sin:  { label: 'Singapore (SIN)',   fare: 575 },
-    lhr:  { label: 'London (LHR)',      fare: 675 }
+    del:  { label: 'Delhi (DEL)',       fare: 365 },
+    bom:  { label: 'Mumbai (BOM)',      fare: 355 },
+    blr:  { label: 'Bengaluru (BLR)',   fare: 390 },
+    sin:  { label: 'Singapore (SIN)',   fare: 515 },
+    lhr:  { label: 'London (LHR)',      fare: 480 }
   },
 
   // Out-of-pocket food and drink for the whole trip, per adult. Children eat
   // at roughly 60% of an adult.
-  food: { light: 95, standard: 130, generous: 165 },
+  food: { light: 80, standard: 110, generous: 145 },
   foodChildFactor: 0.6,
 
   // Optional extras. Banya 10,000 KZT a visit; Medeu is 1,800 KZT entry plus
