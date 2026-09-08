@@ -41,23 +41,13 @@
   <div class="wrap" style="max-width:760px;">
     <div class="form-wrap">
 
-      <!-- Submissions go to Web3Forms, which emails them to p24dhruv@iima.ac.in.
-           The access key is public by necessity — it lives in client-side HTML
-           on every Web3Forms site. It only permits posting to this form; rotate
-           it at web3forms.com if it ever attracts spam.
-
-           There is deliberately no `redirect` field: it would need an absolute
-           URL, and it is only ever used by visitors with JavaScript disabled
-           (everyone else gets the inline success state below). Rather than
-           hardcode a guessed domain and send those few people somewhere broken,
-           they land on Web3Forms' own thank-you page. Add
-           <input type="hidden" name="redirect" value="https://YOURDOMAIN/success.html">
-           once the final domain is settled. -->
-      <form id="rsvp-form" name="snow-trek-rsvp" method="POST" action="https://api.web3forms.com/submit">
-        <input type="hidden" name="access_key" value="eadc4ead-afb0-473d-988f-7d4347d656d6" />
-        <input type="hidden" name="subject" value="New IIMA Snow Trek 2027 registration" />
-        <input type="hidden" name="from_name" value="IIMA Snow Trek website" />
-        <!-- Web3Forms honeypot: bots fill it, humans never see it. -->
+      <!-- Posts to our own /api/register Pages Function, which saves the
+           registration to the D1 database (the source of truth) and then
+           forwards it to Web3Forms for the notification email. The Web3Forms
+           key now lives in a Cloudflare environment variable rather than in
+           this page. See README for the bindings that must be configured. -->
+      <form id="rsvp-form" name="snow-trek-rsvp" method="POST" action="/api/register">
+        <!-- Honeypot: bots fill it, humans never see it. -->
         <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
 
         <div class="form-grid-2">
@@ -80,6 +70,20 @@
             <label for="campus">IIMA programme &amp; batch year *</label>
             <input type="text" id="campus" name="campus" placeholder="e.g. IIMA, PGP 2016" required>
           </div>
+        </div>
+
+        <div class="form-row">
+          <label for="origin">Flying from</label>
+          <select id="origin" name="origin">
+            <option value="">Not sure yet</option>
+            <option value="Delhi">Delhi (DEL)</option>
+            <option value="Mumbai">Mumbai (BOM)</option>
+            <option value="Bengaluru">Bengaluru (BLR)</option>
+            <option value="Singapore">Singapore (SIN)</option>
+            <option value="London">London (LHR)</option>
+            <option value="Other">Somewhere else</option>
+          </select>
+          <div class="hint">Helps us group airport transfers and share flight options with people on the same route.</div>
         </div>
 
         <div class="form-row">

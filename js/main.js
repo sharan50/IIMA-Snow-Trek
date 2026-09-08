@@ -63,13 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      var key = (form.querySelector('[name="access_key"]') || {}).value || '';
-      if (key.indexOf('PASTE-YOUR') === 0) {
-        alert('This form is not connected yet — the site owner still needs to add the Web3Forms access key.\n\nPlease email p24dhruv@iima.ac.in to register in the meantime.');
-        return;
-      }
-
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
 
       fetch(form.action, {

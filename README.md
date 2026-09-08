@@ -12,11 +12,13 @@ itinerary.html     Day-by-day itinerary
 activities.html    Shymbulak snow activities + Almaty non-snow activities
 pricing.html       Pricing tiers, inclusions/exclusions
 faq.html           FAQ (visa, weather, packing, currency, etc.)
-register.html      RSVP / interest registration form (Netlify Forms)
-success.html       Form submission confirmation (no-JS fallback)
+register.html      RSVP / registration form
+success.html       Form submission confirmation
 css/style.css      Shared stylesheet
-js/main.js         Nav toggle, tabs, FAQ accordion, AJAX form submit
-netlify.toml       Netlify build/publish config
+js/main.js         Nav toggle, tabs, FAQ accordion, form submit
+js/calculator.js   Trip cost calculator (archetypes + breakdown)
+functions/api/register.js   Pages Function: saves to D1, forwards the email
+_headers           Security headers for Cloudflare Pages
 ```
 
 ## Deploying on Cloudflare Pages
@@ -27,29 +29,53 @@ netlify.toml       Netlify build/publish config
 
 ## Registrations
 
-The form on `register.html` posts to [Web3Forms](https://web3forms.com), which emails each
-submission to the organiser. There is no backend to run and it is host-agnostic.
+Registrations post to `/api/register` (a Cloudflare Pages Function). That function
+writes the row to a **D1 database** — the source of truth — and then forwards the
+submission to Web3Forms so an email still arrives immediately.
 
-The access key is configured. Free tier is 250 submissions per month, ample for a
-~30-person trip.
+### Cloudflare setup required before this works
+
+In the Pages project → **Settings → Bindings**:
+
+| Type | Variable name | Value |
+|------|---------------|-------|
+| D1 database | `DB` | `iima-snow-trek` (id `44e6e590-243b-4064-88a0-09849894e775`) |
+| Environment variable | `WEB3FORMS_KEY` | `eadc4ead-afb0-473d-988f-7d4347d656d6` |
+
+Add both to **Production** (and Preview if you use it), then redeploy. Without the
+`DB` binding the endpoint returns an error rather than dropping registrations
+silently. Without `WEB3FORMS_KEY` the row is still saved and only the email is
+skipped.
+
+The Web3Forms key now lives in an environment variable rather than in page source,
+so it is no longer public.
+
+### The database
+
+Schema is `registrations`, already created. Alongside the submitted fields it
+carries organiser-managed columns — `status`, `deposit_paid`, `amount_paid`,
+`organiser_notes`, `updated_at` — so the trip can be run off this table rather
+than out of an inbox: who has paid, who needs a roommate, who is flying from
+where.
+
+Query it from the Cloudflare dashboard (D1 → iima-snow-trek → Console), via
+`wrangler d1 execute iima-snow-trek --command "..."`, or by asking Claude, which
+can read and write it directly.
+
+Free tier is 250 Web3Forms emails per month and 5 GB of D1 storage — ample.
 
 **Before sharing the link: submit one real test registration and confirm the email
 arrives.** Nothing else verifies the endpoint end to end.
 
 Notes:
 
-- The access key sits in client-side HTML, which is how Web3Forms works — it is not
-  a secret. It only allows posting to this form. Rotate it at web3forms.com if it
-  starts attracting spam; a hidden `botcheck` honeypot already filters most bots.
-- There is no `redirect` field. It only affects visitors with JavaScript disabled
-  (everyone else gets the inline success state), and it needs an absolute URL. Once
-  the final domain is settled, add
-  `<input type="hidden" name="redirect" value="https://YOURDOMAIN/success.html">`
-  to the form so those visitors land on the site's own success page instead of
-  Web3Forms' generic one.
+- A hidden `botcheck` honeypot filters most bots; a submission carrying it returns
+  success to the bot but writes nothing.
 - The form only shows its confirmation when the endpoint actually accepts the
   submission. A failed post surfaces the real error and tells the visitor to email
   instead, so a registration can never be silently lost.
+- Visitors with JavaScript disabled currently see the raw JSON response after
+  posting. If that matters, add a `redirect` back once the final domain is known.
 
 > Previously this site was built for Netlify Forms (`data-netlify="true"`), which only
 > works on Netlify. On any other host that form silently discarded every submission
