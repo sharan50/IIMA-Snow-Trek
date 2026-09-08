@@ -720,7 +720,8 @@ section { padding: 72px 0; }
 }
 
 /* ---------- Cost calculator ---------- */
-.calc { margin-top: 8px; }
+/* Offset the anchor target so #calc doesn't land under the sticky header. */
+.calc { margin-top: 8px; scroll-margin-top: 90px; }
 
 .calc-presets {
   display: grid;
