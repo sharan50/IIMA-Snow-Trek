@@ -2,3 +2,16 @@
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# The ski simulator is framed by /game.html on this same origin. A site-wide
+# X-Frame-Options: DENY blocks that too, and a second X-Frame-Options value
+# here would be joined with a comma rather than replacing it — so detach the
+# header on these paths and use frame-ancestors, which allows our own pages
+# and nobody else's.
+/simulator
+  ! X-Frame-Options
+  Content-Security-Policy: frame-ancestors 'self'
+
+/simulator/*
+  ! X-Frame-Options
+  Content-Security-Policy: frame-ancestors 'self'

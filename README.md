@@ -17,9 +17,38 @@ success.html       Form submission confirmation
 css/style.css      Shared stylesheet
 js/main.js         Nav toggle, tabs, FAQ accordion, form submit
 js/calculator.js   Trip cost calculator (archetypes + breakdown)
+js/game.js         Click-to-load embed for the ski simulator
+game.html          Fall Line, the ski simulator (wrapper page + controls)
+simulator/index.html        Vendored copy of the game itself — see below
 functions/api/register.js   Pages Function: saves to D1, forwards the email
 _headers           Security headers for Cloudflare Pages
 ```
+
+## The ski simulator
+
+`simulator/index.html` is a **copy** of Fall Line, the single-file browser ski game
+from [`sharan50/dhruv-bakchodi`](https://github.com/sharan50/dhruv-bakchodi)
+(branch `claude/html-skiing-game-fwa4gu`, commit `e30568c`, 10 Aug 2026). It is one
+self-contained HTML file — no build step, no dependencies, no assets, no network
+calls — so vendoring it is just a file copy.
+
+To update it, copy that repo's `index.html` over `simulator/index.html`, keeping the
+provenance comment at the top. Never edit the copy directly.
+
+Two reasons it is served from this origin rather than framed from its own Netlify
+deploy: the page then does not depend on a second deploy staying up, and same-origin
+framing cannot be blocked by the other host's `X-Frame-Options`.
+
+That last point cuts both ways: this site sends `X-Frame-Options: DENY` on every
+response, which blocks same-origin framing too. `_headers` therefore detaches that
+header for `/simulator` and `/simulator/*` and sets
+`Content-Security-Policy: frame-ancestors 'self'` instead, so the game can be framed
+by our own pages and by nobody else's. A second `X-Frame-Options` line would not have
+worked — Cloudflare joins repeated headers with a comma rather than replacing them.
+
+The game is **keyboard-only** (arrows/AD to steer, Q/W/E for effort, SPACE to drop
+in), so it is not playable on a phone. `game.html` says so, and the home page teaser
+tells people to open it on a laptop.
 
 ## Deploying on Cloudflare Pages
 
@@ -90,5 +119,6 @@ Notes:
 - [x] Food &amp; drink (non-package meals, snacks, incidentals) cost estimate added to `pricing.html`, grounded in Numbeo Almaty cost-of-living data and Shymbulak's on-mountain food prices.
 - [ ] Optional: add a testimonials section to `index.html` once real quotes from Edition I participants are available. The original placeholder section was removed rather than shipped with invented quotes.
 - [x] Real destination photos added (hero backgrounds, home page gallery, activities banners/thumbnails) — all hotlinked from Wikimedia Commons via `Special:FilePath`. Several are CC BY-SA (attribution required); a general "Photos: Wikimedia Commons contributors" credit is on the home and activities pages, but double-check individual file pages on commons.wikimedia.org and add specific photographer credit if required before wide public launch.
+- [x] Ski simulator added: `game.html` wraps a same-origin embed of Fall Line, with the real controls documented from the game's source, plus a teaser on the home page and a "Ski Game" nav entry. Adding an eighth nav item pushed the header over one line, so the mobile menu now collapses at 1000px rather than 860px.
 - [ ] Confirm Kazakhstan visa guidance is accurate for your group's nationalities before publishing the FAQ answer as final.
 - [x] Dropped the professional-networking/mixer framing site-wide per updated direction: removed the dedicated `events.html` page, renamed the evening events (Welcome Reception → Welcome Dinner, Apres-Ski Mixer → Apres-Ski Hangout, Alumni Gala Dinner &amp; Fireside Chat → Group Dinner Night), and reworded home page copy to center on learning to ski/snowboard and winter experiences rather than alumni networking.

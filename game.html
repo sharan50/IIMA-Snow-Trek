@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ski Simulator — IIMA Snow Trek 2027</title>
-<meta name="description" content="A browser ski simulator to get a feel for the basic mechanics before you get on a real slope at Shymbulak.">
+<title>Fall Line, the ski simulator — IIMA Snow Trek 2027</title>
+<meta name="description" content="Fall Line: a browser ski simulator built for the trip, to get a feel for edges, turn shape and speed control before you get on a real slope at Shymbulak.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,8 +33,8 @@
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow on-dark">Before you get on a real slope</span>
-    <h1>The ski simulator</h1>
-    <p>A little browser game built for this trip. It won't teach you to ski — nothing but snow does that — but it gets the basic idea of edges, turns and speed into your head before you're standing at the top of one.</p>
+    <h1>Fall Line — the ski simulator</h1>
+    <p>A browser game built for this trip: an endless alpine descent where turn shape is your brake, exactly as it is on snow. It won't teach you to ski — nothing but snow does that — but it puts edges, turn shape and speed control in your head before you're standing at the top of a real one.</p>
   </div>
 </section>
 
@@ -44,31 +44,41 @@
       <div class="game-placeholder" id="game-placeholder">
         <div class="game-ph-inner">
           <div class="game-ph-icon">⛷️</div>
-          <h2>Play the ski simulator</h2>
-          <p>Loads in the page — it's a separate little site, so give it a moment to start.</p>
+          <h2>Fall Line</h2>
+          <p>Needs a keyboard, so this one is for laptops and desktops. Sound is generated live as you ski &mdash; headphones recommended.</p>
           <button class="btn btn-primary" id="game-load">Start the game</button>
           <p class="game-ph-alt">
-            Trouble loading? <a href="https://skiing-game.netlify.app" target="_blank" rel="noopener">Open it in a new tab instead ↗</a>
+            Or <a href="simulator/" target="_blank" rel="noopener">play it full screen in a new tab ↗</a>
           </p>
         </div>
       </div>
     </div>
 
-    <p class="game-note" id="game-hint" hidden>
-      Not seeing anything above? <a href="https://skiing-game.netlify.app" target="_blank" rel="noopener">Open the game in a new tab ↗</a>
+    <p class="game-note">
+      Press <kbd>SPACE</kbd> to drop in &mdash; the game takes the keyboard as soon as it loads.
+      If the keys stop responding, click the game once to give it back.
+      <a href="simulator/" target="_blank" rel="noopener">Full screen in a new tab ↗</a>
     </p>
 
-    <p class="game-note">
-      Runs best on a laptop or desktop with a keyboard. Hosted separately at
-      <a href="https://skiing-game.netlify.app" target="_blank" rel="noopener">skiing-game.netlify.app</a> —
-      if the embed above stays blank, that link always works.
-    </p>
+    <div class="controls-card">
+      <h3>The controls</h3>
+      <p class="controls-lede">Two hands: one steers, one decides how hard you're working. The effort keys are the whole game &mdash; the game explains all of this on its title screen too.</p>
+      <dl class="controls-list">
+        <div><dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Steer. Hold longer to bring the skis further across the fall line. (<kbd>A</kbd> <kbd>D</kbd> work too.)</dd></div>
+        <div><dt><span class="dt-none">nothing</span></dt><dd>Standing tall, skis flat &mdash; barely any edge, barely a turn, and a lot of drag.</dd></div>
+        <div><dt><kbd>Q</kbd></dt><dd>Knees a little bent. Modest edge, gentle turns.</dd></div>
+        <div><dt><kbd>Q</kbd><kbd>W</kbd></dt><dd>Real edge grip. Hold a direction long enough and you come parallel and stop.</dd></div>
+        <div><dt><kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd></dt><dd>Everything you've got: instant edge, sharp turn, hard scrub. With no steering it folds into a racing tuck and the speed goes silly.</dd></div>
+        <div><dt><kbd>SPACE</kbd></dt><dd>Drop in, and once you're going, pop the skis. Land with your knees bent.</dd></div>
+        <div><dt><kbd>P</kbd> <kbd>R</kbd> <kbd>M</kbd></dt><dd>Pause &middot; restart &middot; mute.</dd></div>
+      </dl>
+    </div>
 
     <div class="grid grid-3" style="margin-top:48px;">
       <div class="card">
         <div class="icon">🎯</div>
         <h3>What it's for</h3>
-        <p>Getting the mechanics into your head — turning, controlling speed, picking a line down the hill — so day one at Shymbulak isn't the very first time you've thought about any of it.</p>
+        <p>The one idea worth arriving with: you slow down by turning across the hill, not by leaning back and hoping. The game is unforgiving about it, which is the point.</p>
       </div>
       <div class="card">
         <div class="icon">🧑‍🏫</div>

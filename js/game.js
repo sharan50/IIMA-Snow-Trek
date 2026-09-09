@@ -1,18 +1,21 @@
-/* Ski simulator embed.
+/* Fall Line — the ski simulator embed.
  *
- * Click-to-load rather than an iframe on page load: the game is a separate
- * site, so this avoids pulling it down for everyone who merely lands on the
- * page, and means no third-party request is made until someone asks for one.
+ * The game is a single self-contained HTML file vendored into this site at
+ * /simulator/, so the frame is same-origin: nothing here depends on another
+ * host staying up or on that host's framing policy. The site sends
+ * X-Frame-Options: DENY globally, which would block even this; _headers
+ * detaches it for /simulator/* and allows frame-ancestors 'self' instead.
  *
- * A cross-origin frame cannot be inspected, and a page blocked by
- * X-Frame-Options still fires `load` on the iframe element — so there is no
- * reliable way to detect a blank frame from here. Instead of guessing, the
- * escape hatch is permanent: an "open in a new tab" link stays visible
- * whatever happens, so a blocked embed is an inconvenience rather than a
- * dead end.
+ * Still click-to-load rather than framed on arrival: the game starts a
+ * 180 Hz physics loop, a canvas render loop and a Web Audio synth, and
+ * nobody who merely lands on the page should pay for that.
+ *
+ * The game reads the keyboard from its own document, so the frame has to
+ * hold focus for anything to happen — hence the focus() on load and the
+ * line on the page telling people to click it once.
  */
 
-var GAME_URL = 'https://skiing-game.netlify.app';
+var GAME_URL = 'simulator/';
 
 document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('game-load');
@@ -27,22 +30,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var iframe = document.createElement('iframe');
     iframe.src = GAME_URL;
-    iframe.title = 'Ski simulator';
+    iframe.title = 'Fall Line — ski simulator';
     iframe.className = 'game-iframe';
-    iframe.setAttribute('allow', 'fullscreen; gamepad; accelerometer');
+    iframe.setAttribute('allow', 'fullscreen; gamepad; autoplay');
     iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('loading', 'eager');
 
     iframe.addEventListener('load', function () {
       if (placeholder) placeholder.remove();
-      var hint = document.getElementById('game-hint');
-      if (hint) hint.hidden = false;
+      // Same origin, so this hands the game the keyboard without the user
+      // having to find the canvas and click it first.
+      try { iframe.contentWindow.focus(); } catch (e) { /* not fatal */ }
+      iframe.focus();
     });
 
     frame.appendChild(iframe);
 
-    // If it has not even fired `load` after a while, something is wrong at the
-    // network level — surface the direct link rather than leaving a spinner.
+    // Same-origin and ~120 KB, so this should never fire. If it does, the
+    // deploy is missing /simulator/ — say so rather than leaving a spinner.
     setTimeout(function () {
       if (!placeholder || !placeholder.isConnected) return;
       btn.disabled = false;
