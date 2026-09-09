@@ -19,6 +19,7 @@ js/main.js         Nav toggle, tabs, FAQ accordion, form submit
 js/calculator.js   Trip cost calculator (archetypes + breakdown)
 functions/api/register.js   Pages Function: saves to D1, forwards the email
 _headers           Security headers for Cloudflare Pages
+email/             Alumni invitation email (HTML + plain text) — see email/README.md
 ```
 
 ## Deploying on Cloudflare Pages
