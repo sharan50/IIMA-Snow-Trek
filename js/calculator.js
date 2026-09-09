@@ -8,7 +8,11 @@
    =========================================================================== */
 
 var KZT_PER_USD = 470;
-var INR_PER_USD = 84;
+/* Component costs are sourced in USD and KZT, so rupees are a conversion.
+   ~94.8 was the rate on 8 Sep 2026 (US Federal Reserve H.10), which ranged
+   94.36-95.22 that week; 95 is the round figure used throughout the site.
+   Worth revisiting before the balance is collected. */
+var INR_PER_USD = 95;
 var NIGHTS = 4;
 
 /* Costing stance: every figure below sits at roughly the 25th percentile of
@@ -156,22 +160,27 @@ function compute(s) {
 
   var items = [];
   function add(category, label, amount, note) {
-    if (amount > 0) items.push({ category: category, label: label, amount: amount, note: note || '' });
+    // Rupees are rounded per line and the totals are summed from those rounded
+    // lines, so the breakdown always adds up to the headline figure exactly.
+    if (amount > 0) items.push({
+      category: category, label: label, amount: amount,
+      amountInr: Math.round(amount * INR_PER_USD), note: note || ''
+    });
   }
 
   // --- Flights -----------------------------------------------------------
   var fare = CONFIG.flights[s.origin].fare;
   if (fare > 0) {
     add('flights', 'Return flights × ' + people, fare * people,
-        '$' + fare + ' each from ' + CONFIG.flights[s.origin].label);
+        rs(fare) + ' each from ' + CONFIG.flights[s.origin].label);
   }
 
   // --- Accommodation -----------------------------------------------------
   var units = roomsNeeded(room, people);
   var stayTotal = room.rate * units * NIGHTS;
   var stayNote = room.perPerson
-    ? '$' + room.rate + '/bed/night × ' + units + ' × ' + NIGHTS + ' nights'
-    : '$' + room.rate + '/night × ' + units + ' room' + (units > 1 ? 's' : '') + ' × ' + NIGHTS + ' nights';
+    ? rs(room.rate) + '/bed/night × ' + units + ' × ' + NIGHTS + ' nights'
+    : rs(room.rate) + '/night × ' + units + ' room' + (units > 1 ? 's' : '') + ' × ' + NIGHTS + ' nights';
   add('stay', room.label + ', ' + NIGHTS + ' nights', stayTotal, stayNote);
 
   // --- On the mountain ---------------------------------------------------
@@ -186,7 +195,7 @@ function compute(s) {
     var skiers = adults + (s.childrenSki ? children : 0);
     var rentalDays = s.skiDays;
     add('mountain', 'Ski / snowboard hire', CONFIG.rentalPerDay * rentalDays * skiers,
-        '$' + CONFIG.rentalPerDay + '/day × ' + rentalDays + ' × ' + skiers + ' skier' + (skiers === 1 ? '' : 's'));
+        rs(CONFIG.rentalPerDay) + '/day × ' + rentalDays + ' × ' + skiers + ' skier' + (skiers === 1 ? '' : 's'));
   }
   if (s.lesson) {
     var learners = adults + (s.childrenSki ? children : 0);
@@ -201,7 +210,7 @@ function compute(s) {
   add('package', 'Airport transfers', CONFIG.airportTransfer * people, 'Return, shared shuttle');
   add('package', 'The 4 hosted meals & evenings',
       CONFIG.hostedAdult * adults + CONFIG.hostedChild * children,
-      '$' + CONFIG.hostedAdult + '/adult, $' + CONFIG.hostedChild + '/child');
+      rs(CONFIG.hostedAdult) + '/adult, ' + rs(CONFIG.hostedChild) + '/child');
   add('package', 'Coordination & contingency',
       CONFIG.coordinatorAdult * adults + CONFIG.coordinatorChild * children,
       'On-ground organiser fee');
@@ -211,38 +220,44 @@ function compute(s) {
   var foodChild = Math.round(foodAdult * CONFIG.foodChildFactor);
   add('extras', 'Food & drink not in the package',
       foodAdult * adults + foodChild * children,
-      'Lunches, 2 unhosted dinners, snacks — $' + foodAdult + '/adult');
-  if (s.banya) add('extras', 'Banya session', CONFIG.banya * adults, '$' + CONFIG.banya + ' × ' + adults + ' adults');
+      'Lunches, 2 unhosted dinners, snacks — ' + rs(foodAdult) + '/adult');
+  if (s.banya) add('extras', 'Banya session', CONFIG.banya * adults, rs(CONFIG.banya) + ' × ' + adults + ' adults');
   if (s.skating) add('extras', 'Skating at Medeu',
       CONFIG.skatingAdult * adults + CONFIG.skatingChild * children, 'Entry plus skate hire');
 
   var total = items.reduce(function (sum, i) { return sum + i.amount; }, 0);
+  var totalInr = items.reduce(function (sum, i) { return sum + i.amountInr; }, 0);
 
   var byCategory = CATEGORIES.map(function (c) {
-    var amount = items.filter(function (i) { return i.category === c.key; })
-                      .reduce(function (sum, i) { return sum + i.amount; }, 0);
-    return { key: c.key, label: c.label, color: c.color, amount: amount,
+    var rows = items.filter(function (i) { return i.category === c.key; });
+    var amount = rows.reduce(function (sum, i) { return sum + i.amount; }, 0);
+    var amountInr = rows.reduce(function (sum, i) { return sum + i.amountInr; }, 0);
+    return { key: c.key, label: c.label, color: c.color, amount: amount, amountInr: amountInr,
              share: total > 0 ? amount / total : 0 };
   }).filter(function (c) { return c.amount > 0; });
 
-  return { items: items, byCategory: byCategory, total: total, people: people, adults: adults, children: children };
+  return { items: items, byCategory: byCategory, total: total, totalInr: totalInr,
+           people: people, adults: adults, children: children };
 }
 
 /* --------------------------------------------------------------------------
    Rendering
    -------------------------------------------------------------------------- */
 
-function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+function inr(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+function usd(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+/* Component costs are held in USD; notes quote them in rupees to match the
+   rest of the page. Hoisted, so compute() can use it. */
+function rs(usdAmount) { return inr(usdAmount * INR_PER_USD); }
 
 function render() {
   var r = compute(state);
 
-  document.getElementById('calc-total').textContent = money(r.total);
+  document.getElementById('calc-total').textContent = inr(r.totalInr);
   document.getElementById('calc-total-inr').textContent =
-    '≈ ₹' + Math.round(r.total * INR_PER_USD).toLocaleString('en-IN') +
-    ' for the whole party';
+    '≈ ' + usd(r.total) + ' for the whole party';
   document.getElementById('calc-per-head').textContent =
-    money(r.total / r.people) + ' per person across ' + r.people +
+    inr(r.totalInr / r.people) + ' per person across ' + r.people +
     (r.people === 1 ? ' traveller' : ' travellers');
 
   // Stacked composition bar: 2px surface gaps, rounded outer ends.
@@ -255,7 +270,7 @@ function render() {
     seg.style.background = c.color;
     seg.setAttribute('tabindex', '0');
     seg.setAttribute('role', 'img');
-    seg.setAttribute('aria-label', c.label + ': ' + money(c.amount) + ', ' + Math.round(c.share * 100) + '% of the total');
+    seg.setAttribute('aria-label', c.label + ': ' + inr(c.amountInr) + ', ' + Math.round(c.share * 100) + '% of the total');
     seg.addEventListener('mouseenter', function (e) { showTip(e, c); });
     seg.addEventListener('focus', function (e) { showTip(e, c); });
     seg.addEventListener('mouseleave', hideTip);
@@ -269,7 +284,7 @@ function render() {
     var li = document.createElement('li');
     li.innerHTML = '<span class="sw" style="background:' + c.color + '"></span>' +
       '<span class="lg-label">' + c.label + '</span>' +
-      '<span class="lg-val">' + money(c.amount) + ' · ' + Math.round(c.share * 100) + '%</span>';
+      '<span class="lg-val">' + inr(c.amountInr) + ' · ' + Math.round(c.share * 100) + '%</span>';
     legend.appendChild(li);
   });
 
@@ -286,7 +301,8 @@ function render() {
           : '') + '</td>' +
         '<td><strong>' + item.label + '</strong>' +
           (item.note ? '<span class="row-note">' + item.note + '</span>' : '') + '</td>' +
-        '<td class="amt">' + money(item.amount) + '</td>';
+        '<td class="amt">' + inr(item.amountInr) +
+          '<span class="amt-sub">' + usd(item.amount) + '</span></td>';
       tbody.appendChild(tr);
     });
   });
@@ -297,7 +313,7 @@ function showTip(e, c) {
   hideTip();
   tip = document.createElement('div');
   tip.className = 'calc-tip';
-  tip.innerHTML = '<strong>' + c.label + '</strong>' + money(c.amount) +
+  tip.innerHTML = '<strong>' + c.label + '</strong>' + inr(c.amountInr) +
     ' · ' + Math.round(c.share * 100) + '% of total';
   document.body.appendChild(tip);
   var rect = e.target.getBoundingClientRect();

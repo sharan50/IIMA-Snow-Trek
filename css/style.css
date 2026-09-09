@@ -554,8 +554,9 @@ section { padding: 72px 0; }
 }
 .flight-table tr:last-child td { border-bottom: none; }
 .flight-table td.hub { font-weight: 700; color: var(--navy-950); }
-.flight-table td.fare-local { font-weight: 600; }
-.flight-table td.fare-usd { color: var(--slate-500); }
+.flight-table td.fare-local { font-weight: 600; color: var(--navy-950); }
+/* Secondary currency: present for reference, but clearly subordinate. */
+.flight-table td.fare-usd { color: var(--slate-500); font-size: 0.8rem; font-weight: 500; }
 
 .incl-excl { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
 @media (max-width: 700px) { .incl-excl { grid-template-columns: 1fr; } }
@@ -907,6 +908,7 @@ section { padding: 72px 0; }
 .calc-table td strong { font-weight: 600; color: var(--navy-900); display: block; }
 .calc-table .row-note { display: block; font-size: 0.78rem; color: var(--slate-500); margin-top: 2px; }
 .calc-table .amt { text-align: right; font-weight: 600; color: var(--navy-950); white-space: nowrap; }
+.calc-table .amt-sub { display: block; font-weight: 500; font-size: 0.76rem; color: var(--slate-500); margin-top: 2px; }
 .calc-table th:last-child { text-align: right; }
 
 .calc-tip {
