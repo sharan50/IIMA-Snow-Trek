@@ -1,6 +1,6 @@
 # IIMA Snow Trek 2027
 
-Website for the IIMA alumni Snow Trek — the annual alumni Snowflake trip. Edition I went to the Dolomites; Edition II heads to Almaty and Shymbulak, Kazakhstan for a 4-night, 4-full-day trip focused on learning to ski/snowboard and winter experiences in Kazakhstan (no professional-networking framing — see below).
+Website for the IIMA alumni Snow Trek — the annual alumni Snowflake trip. Edition I went to Cervinia in the Italian Alps; Edition II heads to Almaty and Shymbulak, Kazakhstan for a 4-night, 4-full-day trip focused on learning to ski/snowboard and winter experiences in Kazakhstan (no professional-networking framing — see below).
 
 ## Structure
 
