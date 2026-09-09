@@ -143,6 +143,7 @@ section { padding: 72px 0; }
 
 .brand {
   display: flex;
+  white-space: nowrap;
   align-items: center;
   gap: 10px;
   color: var(--white);
@@ -174,12 +175,23 @@ section { padding: 72px 0; }
 
 .nav-links a {
   display: block;
-  padding: 10px 14px;
+  padding: 10px 12px;
   border-radius: 999px;
   color: rgba(255,255,255,0.82);
   font-size: 0.92rem;
   font-weight: 500;
+  white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Between the mobile breakpoint and ~1100px the eight nav items are tight
+   enough to start wrapping mid-label. Tighten the spacing rather than let
+   "Ski Game" or "Reserve a Spot" break across two lines. */
+@media (min-width: 1001px) and (max-width: 1180px) {
+  .nav { padding-left: 14px; padding-right: 14px; }
+  .nav-links { gap: 0; }
+  .nav-links a { padding: 9px 8px; font-size: 0.84rem; }
+  .brand { font-size: 1.05rem; }
 }
 
 .nav-links a:hover { background: rgba(255,255,255,0.08); color: var(--white); }
@@ -202,7 +214,7 @@ section { padding: 72px 0; }
   padding: 4px 8px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   .nav-toggle { display: block; }
   .nav-links {
     position: absolute;
@@ -680,6 +692,70 @@ section { padding: 72px 0; }
 .cta-band h2 { color: var(--white); }
 .cta-band p { color: rgba(255,255,255,0.78); max-width: 560px; margin-left: auto; margin-right: auto; }
 .cta-band .hero-ctas { justify-content: center; }
+
+/* ---------- Ski game embed ---------- */
+.game-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--navy-950);
+  box-shadow: 0 12px 32px rgba(11, 31, 58, 0.18);
+}
+@media (max-width: 700px) { .game-frame { aspect-ratio: 4 / 5; min-height: 380px; } }
+
+.game-iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+.game-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 28px;
+  background:
+    linear-gradient(160deg, rgba(7,20,39,0.86) 0%, rgba(11,31,58,0.82) 55%, rgba(46,147,201,0.7) 140%),
+    url('https://commons.wikimedia.org/wiki/Special:FilePath/Downhill_skiing_in_flat_light.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.game-ph-inner { max-width: 420px; }
+.game-ph-icon { font-size: 2.4rem; margin-bottom: 10px; }
+.game-placeholder h2 { color: var(--white); margin-bottom: 8px; }
+.game-placeholder p { color: rgba(255,255,255,0.8); font-size: 0.92rem; }
+.game-ph-alt { margin: 14px 0 0; font-size: 0.85rem !important; }
+.game-ph-alt a { color: var(--gold-400); border-bottom: 1px solid rgba(244,185,66,0.4); }
+.game-ph-alt.is-warning { color: var(--gold-400) !important; font-weight: 600; }
+
+.game-note {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--slate-500);
+  text-align: center;
+}
+.game-note a { color: var(--sky-500); border-bottom: 1px solid rgba(46,147,201,0.35); }
+
+/* Home-page teaser card for the ski game */
+.game-teaser {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+  padding: 34px 36px;
+  border: 1px solid var(--ice-300);
+  border-left: 4px solid var(--sky-500);
+  border-radius: var(--radius-lg);
+  background: var(--ice-100);
+}
+.game-teaser-icon { font-size: 3rem; line-height: 1; }
+.game-teaser-copy h2 { font-size: 1.6rem; margin-bottom: 10px; }
+.game-teaser-copy p { max-width: 620px; margin-bottom: 20px; }
+@media (max-width: 700px) {
+  .game-teaser { grid-template-columns: 1fr; gap: 14px; padding: 26px 22px; }
+}
 
 /* ---------- Edition I recap video ---------- */
 .recap {

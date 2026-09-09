@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ski Simulator — IIMA Snow Trek 2027</title>
+<meta name="description" content="A browser ski simulator to get a feel for the basic mechanics before you get on a real slope at Shymbulak.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%84%EF%B8%8F%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="brand"><span class="flake">❄</span> IIMA Snow Trek<span class="brand-sub">Almaty &amp; Shymbulak · Edition II</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="itinerary.html">Itinerary</a></li>
+      <li><a href="activities.html">Activities</a></li>
+      <li><a href="game.html">Ski Game</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="pricing.html#calc">Calculator</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="register.html" class="nav-cta">Reserve a Spot</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Before you get on a real slope</span>
+    <h1>The ski simulator</h1>
+    <p>A little browser game built for this trip. It won't teach you to ski — nothing but snow does that — but it gets the basic idea of edges, turns and speed into your head before you're standing at the top of one.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="game-frame" id="game-frame">
+      <div class="game-placeholder" id="game-placeholder">
+        <div class="game-ph-inner">
+          <div class="game-ph-icon">⛷️</div>
+          <h2>Play the ski simulator</h2>
+          <p>Loads in the page — it's a separate little site, so give it a moment to start.</p>
+          <button class="btn btn-primary" id="game-load">Start the game</button>
+          <p class="game-ph-alt">
+            Trouble loading? <a href="https://skiing-game.netlify.app" target="_blank" rel="noopener">Open it in a new tab instead ↗</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="game-note" id="game-hint" hidden>
+      Not seeing anything above? <a href="https://skiing-game.netlify.app" target="_blank" rel="noopener">Open the game in a new tab ↗</a>
+    </p>
+
+    <p class="game-note">
+      Runs best on a laptop or desktop with a keyboard. Hosted separately at
+      <a href="https://skiing-game.netlify.app" target="_blank" rel="noopener">skiing-game.netlify.app</a> —
+      if the embed above stays blank, that link always works.
+    </p>
+
+    <div class="grid grid-3" style="margin-top:48px;">
+      <div class="card">
+        <div class="icon">🎯</div>
+        <h3>What it's for</h3>
+        <p>Getting the mechanics into your head — turning, controlling speed, picking a line down the hill — so day one at Shymbulak isn't the very first time you've thought about any of it.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧑‍🏫</div>
+        <h3>What it isn't</h3>
+        <p>A substitute for a lesson. A real instructor for a real half-day is included in the trip package, and that's what actually gets you down a slope.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⛷️</div>
+        <h3>Then do it properly</h3>
+        <p>Beginner group lessons are built into the itinerary on the first morning at Shymbulak, with gear hire covered.</p>
+      </div>
+    </div>
+
+    <p class="center" style="margin-top:44px;"><a href="register.html" class="btn btn-primary">Reserve Your Spot</a></p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px;"><span class="flake">❄</span> IIMA Snow Trek</div>
+        <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; max-width:320px;">An annual alumni Snowflake trip. Edition I took the crew to the Dolomites; Edition II heads to Almaty and Shymbulak, Kazakhstan.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="itinerary.html">Itinerary</a></li>
+          <li><a href="activities.html">Activities</a></li>
+          <li><a href="game.html">Ski game</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="pricing.html#calc">Cost calculator</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="mailto:p24dhruv@iima.ac.in">p24dhruv@iima.ac.in</a></li>
+          <li><a href="register.html">Reserve your spot →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026–2027 IIMA Snow Trek. Organized by IIMA alumni, for IIMA alumni.</span>
+      <span>Made with ❄ for the crew.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
