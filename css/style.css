@@ -709,31 +709,66 @@ section { padding: 72px 0; }
   background: var(--navy-950);
   box-shadow: 0 12px 32px rgba(11, 31, 58, 0.18);
 }
-@media (max-width: 700px) { .game-frame { aspect-ratio: 4 / 5; min-height: 380px; } }
+/* A tall portrait frame crops the 16:9 still down to a strip of snow, and
+   the game wants a keyboard anyway — so keep it landscape on phones. */
+@media (max-width: 700px) { .game-frame { aspect-ratio: 4 / 3; min-height: 300px; } }
 
 .game-iframe { width: 100%; height: 100%; border: 0; display: block; }
 
+/* The poster is a real screenshot of the game wrapped in a link to it, so
+   it works with scripting off; the script upgrades the click to load the
+   game into this frame instead. */
 .game-placeholder {
   position: absolute;
   inset: 0;
+  display: block;
+  overflow: hidden;
+  background: var(--navy-950);
+  cursor: pointer;
+}
+.game-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.game-ph-inner {
+  position: absolute;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 28px;
-  background:
-    linear-gradient(160deg, rgba(7,20,39,0.86) 0%, rgba(11,31,58,0.82) 55%, rgba(46,147,201,0.7) 140%),
-    url('https://commons.wikimedia.org/wiki/Special:FilePath/Downhill_skiing_in_flat_light.jpg');
-  background-size: cover;
-  background-position: center;
+  /* Scrim: the screenshot is mostly bright snow, so the copy needs its own
+     ground to sit on rather than relying on the image behind it. */
+  background: linear-gradient(180deg, rgba(7,20,39,0.30) 0%, rgba(7,20,39,0.62) 45%, rgba(7,20,39,0.80) 100%);
+  transition: background 0.25s ease;
 }
-.game-ph-inner { max-width: 420px; }
-.game-ph-icon { font-size: 2.4rem; margin-bottom: 10px; }
-.game-placeholder h2 { color: var(--white); margin-bottom: 8px; }
-.game-placeholder p { color: rgba(255,255,255,0.8); font-size: 0.92rem; }
-.game-ph-alt { margin: 14px 0 0; font-size: 0.85rem !important; }
-.game-ph-alt a { color: var(--gold-400); border-bottom: 1px solid rgba(244,185,66,0.4); }
-.game-ph-alt.is-warning { color: var(--gold-400) !important; font-weight: 600; }
+.game-ph-icon { font-size: 2.4rem; line-height: 1; margin-bottom: 10px; }
+.game-ph-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.game-ph-copy {
+  color: rgba(255,255,255,0.86);
+  font-size: 0.92rem;
+  max-width: 420px;
+  margin-bottom: 20px;
+}
+.game-placeholder:hover .game-shot { transform: scale(1.03); }
+.game-placeholder:hover .game-ph-inner { background: linear-gradient(180deg, rgba(7,20,39,0.22) 0%, rgba(7,20,39,0.55) 45%, rgba(7,20,39,0.76) 100%); }
+.game-placeholder:hover .game-ph-btn { background: var(--gold-500); }
+.game-placeholder:focus-visible { outline: 3px solid var(--gold-400); outline-offset: 3px; }
+.game-placeholder.is-loading { cursor: progress; }
+.game-placeholder.is-loading .game-ph-inner { background: rgba(7,20,39,0.86); }
+.game-placeholder.is-loading .game-ph-btn { opacity: 0.6; }
 
 .game-note {
   margin-top: 14px;
@@ -808,11 +843,21 @@ section { padding: 72px 0; }
   border-radius: var(--radius-lg);
   background: var(--ice-100);
 }
-.game-teaser-icon { font-size: 3rem; line-height: 1; }
+.game-teaser-shot {
+  display: block;
+  width: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(11, 31, 58, 0.16);
+}
+.game-teaser-shot img { width: 100%; height: auto; transition: transform 0.4s ease; }
+.game-teaser-shot:hover img { transform: scale(1.04); }
+.game-teaser-shot:focus-visible { outline: 3px solid var(--sky-500); outline-offset: 3px; }
 .game-teaser-copy h2 { font-size: 1.6rem; margin-bottom: 10px; }
 .game-teaser-copy p { max-width: 620px; margin-bottom: 20px; }
 @media (max-width: 700px) {
-  .game-teaser { grid-template-columns: 1fr; gap: 14px; padding: 26px 22px; }
+  .game-teaser { grid-template-columns: 1fr; gap: 18px; padding: 26px 22px; }
+  .game-teaser-shot { width: 100%; }
 }
 
 /* ---------- Edition I recap video ---------- */

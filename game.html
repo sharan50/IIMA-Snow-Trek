@@ -41,17 +41,20 @@
 <section>
   <div class="wrap">
     <div class="game-frame" id="game-frame">
-      <div class="game-placeholder" id="game-placeholder">
-        <div class="game-ph-inner">
-          <div class="game-ph-icon">⛷️</div>
-          <h2>Fall Line</h2>
-          <p>Needs a keyboard, so this one is for laptops and desktops. Sound is generated live as you ski &mdash; headphones recommended.</p>
-          <button class="btn btn-primary" id="game-load">Start the game</button>
-          <p class="game-ph-alt">
-            Or <a href="simulator/" target="_blank" rel="noopener">play it full screen in a new tab ↗</a>
-          </p>
-        </div>
-      </div>
+      <!-- The whole still is a link to the game, so it works with no
+           JavaScript at all: click the picture, you get the game. Where
+           scripting is on, the click loads it into this frame instead
+           (see js/game.js) — a modified click still opens a new tab. -->
+      <a class="game-placeholder" id="game-poster" href="simulator/">
+        <img class="game-shot" src="media/fall-line.jpg" width="1600" height="900"
+             alt="Fall Line in play: a skier carving across a green piste, snow spraying off the edges, with distance, speed and edge-angle readouts around the screen.">
+        <span class="game-ph-inner">
+          <span class="game-ph-icon">⛷️</span>
+          <span class="game-ph-title">Fall Line</span>
+          <span class="game-ph-copy">Needs a keyboard, so this one is for laptops and desktops. Sound is generated live as you ski &mdash; headphones recommended.</span>
+          <span class="btn btn-primary game-ph-btn">Play the game</span>
+        </span>
+      </a>
     </div>
 
     <p class="game-note">
