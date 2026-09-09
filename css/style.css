@@ -681,6 +681,38 @@ section { padding: 72px 0; }
 .cta-band p { color: rgba(255,255,255,0.78); max-width: 560px; margin-left: auto; margin-right: auto; }
 .cta-band .hero-ctas { justify-content: center; }
 
+/* ---------- Edition I recap video ---------- */
+.recap {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) 1fr;
+  gap: 40px;
+  align-items: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+@media (max-width: 760px) {
+  .recap { grid-template-columns: 1fr; gap: 24px; justify-items: center; }
+  .recap-copy { text-align: center; }
+}
+
+.recap-video {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(11, 31, 58, 0.18);
+  background: var(--navy-950);
+  line-height: 0;
+}
+/* Portrait clip: cap the width so it doesn't dominate the page. */
+.recap-video video { width: 100%; max-width: 300px; height: auto; display: block; }
+
+.recap-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: var(--navy-950);
+  margin-bottom: 18px;
+}
+
 /* ---------- Photo gallery ---------- */
 .gallery-grid {
   display: grid;
