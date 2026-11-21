@@ -574,6 +574,54 @@ section { padding: 72px 0; }
 .flight-table td.fare-local { font-weight: 600; color: var(--navy-950); }
 /* Secondary currency: present for reference, but clearly subordinate. */
 .flight-table td.fare-usd { color: var(--slate-500); font-size: 0.8rem; font-weight: 500; }
+/* Verification state of a fare. Colour is never the only cue — each pill
+   carries its own word — so this still reads in greyscale and for anyone
+   who cannot separate the hues. */
+.fare-ok, .fare-warn, .fare-hold {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fare-ok   { background: #dff3e8; color: #10663f; }
+.fare-warn { background: #fdefd2; color: #7a5200; }
+.fare-hold { background: #e8ecf2; color: #495b73; }
+
+/* Shown above the calculator total when the airfare is approximate or absent. */
+.calc-notice {
+  margin: 0 0 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border-left: 4px solid var(--gold-400);
+  background: #fdf6e6;
+  color: var(--navy-900);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+/* Baggage exclusion, printed beside the fare so a total can never be read
+   as an all-in trip cost. */
+.flight-table td.fare-local .fare-bags {
+  display: block;
+  margin-top: 4px;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: #7a5200;
+}
+
+/* A fare quoted in its source currency, with the rupee conversion underneath. */
+.flight-table td.fare-local .fare-conv {
+  display: block;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--slate-500);
+  margin-top: 2px;
+}
 
 .incl-excl { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
 @media (max-width: 700px) { .incl-excl { grid-template-columns: 1fr; } }
