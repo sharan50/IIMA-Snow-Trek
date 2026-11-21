@@ -231,7 +231,7 @@ var CONFIG = {
 
     blr: {
       label: 'Bengaluru (BLR)', fare: null, status: 'pending',
-      note: 'Fare unverified as of 21 Nov 2026 — no booking-verified fare was found in the routings we checked. Observations ran ₹56,600–₹67,000 depending on routing, and none of them could be booked: the Air Arabia same-day combos (₹56,614–₹56,802) were rejected at the booking step three times as no longer available, and the Air India + Air Astana routing via Delhi (BLR 00:15 → ALA 11:15 on 22 Jan; back ALA 14:40 on 26 Jan → BLR 00:25 on 27 Jan, listed ₹66,192–₹67,035) returns "We can\'t find booking options for this itinerary". Those figures are unverified observations only: they are excluded from every total here and from any cheapest-origin comparison.',
+      note: 'Fare unverified as of 21 Nov 2026. No booking-verified fare was found in the routings we checked for the trek dates. Airfare is excluded from this subtotal and from cheapest-origin comparisons. Re-check before booking.',
       rejected: 'The ₹55,087 headline fare lands at 01:30 on 23 January, after the trip starts — excluded on arrival time as well as price.'
     },
 
